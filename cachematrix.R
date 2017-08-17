@@ -1,55 +1,39 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Coursera R Programming Week 3 Assignment
+## Lexical scoping - saving inverse matrix in a cache and retrieving when available
 
-## Write a short comment describing this function
+## Function to:
+## 1) create the matrix
+## 2) get the matrix
+## 3) create the inverse
+## 4) get the inverse
 
 makeCacheMatrix <- function(x = matrix()) {
-
-}
-
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
-
-
-## Assignment examples
-## Function to:
-## 1) set the value of the vector
-## 2) get the value of the vector
-## 3) set the value of the mean
-## 4) get the value of the mean
-
-
-makeVector <- function(x = numeric()) {
-     m <- NULL
+     inv <- NULL
      set <- function(y) {
           x <<- y
-          m <<- NULL
+          inv <<- NULL
      }
      get <- function() x
-     setmean <- function(mean) m <<- mean
-     getmean <- function() m
+     setinv <- function(solve) inv <<- solve
+     getinv <- function() inv
      list(set = set, get = get,
-          setmean = setmean,
-          getmean = getmean)
+          setinv = setinv,
+          getinv = getinv)
 }
 
 ## Function to:
-## 1) Check to see if a mean has already been calculated
-## 2) If not, calculating mean of vector, putting in cache
-## 3) If so, using cached mean, skipping computation
+## 1) Check to see if an inverse matrix has already been created
+## 2) If not, runs solve function, puts inverse in cache
+## 3) If so, prints cached matrix, skipping computation
 
-cachemean <- function(x, ...) {
-     m <- x$getmean()
-     if(!is.null(m)) {
+cacheSolve <- function(x, ...) {
+     inv <- x$getinv()
+     if(!is.null(inv)) {
           message("getting cached data")
-          return(m)
+          return(inv)
      }
      data <- x$get()
-     m <- mean(data, ...)
-     x$setmean(m)
-     m
+     inv <- solve(data, ...)
+     x$setinv(inv)
+     inv
 }
